@@ -1,0 +1,65 @@
+﻿@model List<EntityLayer.Entities.Type>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<a asp-action="Add" class="btn btn-primary" style="margin-left:10px;">Yeni Tip Ekle</a>
+<br />
+<br />
+<table class="table table-bordered table table-striped" id="table">
+    <tr>
+        <th>Tip Adı</th>
+        <th>Durum</th>
+        <th>Tip Sil</th>
+        <th>Tip Güncelle</th>
+    </tr>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.TypeName</td>
+                <td>@item.Situation.SituationName</td>
+                <td><a class="btn btn-danger" id="delete" data-id="@item.SituationId">Sil</a></td>
+                <td><a class="btn btn-warning" asp-action="Update" asp-route-id="@item.TypeId">Güncelle</a></td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<script type="text/javascript">
+
+    $("#table").on("click", "#delete", function () {
+        var id = $(this).data("id");
+        swal({
+            title: 'Tip Silinecek!',
+            text: "Silmek istediğinize emin misiniz?",
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+
+            if (willDelete) {
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/AdminType/Delete/' + id,
+                    success: function () {
+                        toastr.error('Tip Silme İşlemi Başarıyla Gerçekleşti')
+
+
+                    }
+                });
+
+                $(this).parent('td').parent('tr').remove();
+
+            }
+
+        });
+
+    });
+</script>
+
+
+

@@ -1,0 +1,528 @@
+﻿@model Advert
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <!-- Title  -->
+    <title>Emlak | Sitesi</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- Favicon  -->
+    <link rel="icon" href="~/Estate/img/core-img/favicon.ico">
+    <link href="~/star/jquery.rateyo.min.css" rel="stylesheet" />
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="~/Estate/style.css">
+
+    <script src="~/star/jquery.min.js"></script>
+
+
+    <script src="~/star/jquery.rateyo.min.js"></script>
+    @*<script src="~/Estate/js/jquery/jquery-2.2.4.min.js"></script>*@
+</head>
+
+<body>
+
+
+    @*<div id="preloader">
+            <div class="south-load"></div>
+        </div>*@
+
+
+    <header class="header-area">
+
+        <!-- Top Header Area -->
+        <div class="top-header-area">
+            <div class="h-100 d-md-flex justify-content-between align-items-center">
+                <div class="email-address">
+                    <a href="mailto:contact@southtemplate.com">contact@southtemplate.com</a>
+                </div>
+                <div class="phone-number d-flex">
+                    <div class="icon">
+                        <img src="~/Estate/img/icons/phone-call.png" alt="">
+                    </div>
+                    <div class="number">
+                        <a href="tel:+45 677 8993000 223">+45 677 8993000 223</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Header Area -->
+        <div class="main-header-area" id="stickyHeader">
+            <div class="classy-nav-container breakpoint-off">
+                <!-- Classy Menu -->
+                <nav class="classy-navbar justify-content-between" id="southNav">
+
+                    <!-- Logo -->
+                    <a class="nav-brand" href="index.html"><img src="~/Estate/img/core-img/logo.png" alt=""></a>
+
+                    <!-- Navbar Toggler -->
+                    <div class="classy-navbar-toggler">
+                        <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    </div>
+
+                    <div class="classy-menu">
+
+                        <div class="classycloseIcon">
+                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                        </div>
+
+
+                        <div class="classynav">
+                            <ul>
+                                <li><a asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+
+                                <li><a asp-controller="Advert" asp-action="AdvertRent">Kiralık</a></li>
+                                <li><a asp-controller="Advert" asp-action="AdvertSale">Satılık</a></li>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    if (User.IsInRole("Admin"))
+                                    {
+                                        <li><a asp-controller="Admin" asp-action="Index">Admin Paneli</a></li>
+                                        <li><a asp-controller="Account" asp-action="LogOut">Çıkış</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a asp-controller="User" asp-action="Index">Kullanıcı Paneli</a></li>
+                                        <li><a asp-controller="Account" asp-action="LogOut">Çıkış</a></li>
+                                    }
+                                }
+
+                                <li><a asp-controller="Account" asp-action="Login">Giriş</a></li>
+
+
+                                <li><a asp-controller="Account" asp-action="Register">Kayıt</a></li>
+                            </ul>
+
+                            <!-- Search Form -->
+                            <div class="south-search-form">
+                                <form action="#" method="post">
+                                    <input type="search" name="search" id="search" placeholder="Search Anything ...">
+                                    <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                </form>
+                            </div>
+
+                            <!-- Search Button -->
+                            <a href="#" class="searchbtn"><i class="fa" aria-hidden="true"></i></a>
+                        </div>
+                        <!-- Nav End -->
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+
+    <section class="listings-content-wrapper section-padding-100">
+        <div class="container">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="margin-top:100px;">
+
+
+
+
+                <div class="carousel-inner" role="listbox">
+                    @{ int i = 0;}
+                    @foreach (var rsm in ViewBag.imageadvert)
+                    {
+
+
+                        i++;
+
+
+                        var active = i == 1 ? "active" : "";
+
+                        <div class="carousel-item @active">
+
+
+                            <img class="d-block w-100" src="~/img/@rsm.ImageName" alt="First slide" style="width:400px; height:450px;">
+
+
+
+
+                        </div>
+                    }
+                </div>
+
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+
+
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-8">
+                    <div class="listings-content">
+                        <!-- Price -->
+                        <div class="list-price">
+                            <p>@Model.Price ₺</p>
+                        </div>
+                        <h4 style="color:#0e03a1;">@Model.Description</h4>
+                        <p class="location"><img src="~/Estate/img/icons/location.png" alt="">@Model.Neighbourhood.District.City.CityName - @Model.Neighbourhood.District.DistrictName- @Model.Neighbourhood.NeighbourhoodName</p>
+                        <p>@Model.Adress </p>
+                        <!-- Meta -->
+                        <div class="property-meta-data d-flex align-items-end">
+                            @*<div class="new-tag">
+                                    <img src="img/icons/new.png" alt="">
+                                </div>*@
+                            <div class="bathroom">
+                                <img src="~/Estate/img/icons/bathtub.png" alt="">
+                                <span>@Model.BathroomNumbers</span>
+                            </div>
+
+                            <div class="bathroom">
+                                <img src="~/Estate/img/icons/bathtub.png" alt="">
+                                <span>@Model.NumberOfRooms Oda</span>
+                            </div>
+                            <div class="garage">
+                                <img src="~/Estate/img/icons/garage.png" alt="">
+                                @if (Model.Garage != null)
+                                {
+                                    <span> @Model.Garage </span>
+                                }
+                                else
+                                {
+                                    <span> Yok  </span>
+
+                                }
+
+
+
+
+                            </div>
+                            <div class="space">
+                                <img src="~/Estate/img/icons/space.png" alt="">
+                                <span>@Model.Area m <sub>2</sub></span>
+                            </div>
+                        </div>
+                        <!-- Core Features -->
+                        <ul class="listings-core-features d-flex align-items-center">
+                            @if (Model.AirConditoner == true)
+                            {
+
+                                <li>
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                    Klima
+                                </li>
+                            }
+                            @if (Model.Garden == true)
+                            {
+
+                                <li>
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                    Bahçe
+                                </li>
+                            }
+                            @if (Model.Furniture == true)
+                            {
+
+                                <li>
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                    Eşyalı
+                                </li>
+                            }
+                            @if (Model.Pool == true)
+                            {
+
+                                <li>
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                    Havuz
+                                </li>
+                            }
+                            @if (Model.Fireplace == true)
+                            {
+
+                                <li>
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                    Şömine
+                                </li>
+                            }
+
+
+                            @if (Model.Teras == true)
+                            {
+                                <li>
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                    Teras
+                                </li>
+                            }
+
+                        </ul>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <form method="post">
+                            <input type="hidden" name="AdvertId" value="@Model.AdvertId">
+                            <label>Ad Soyad</label>
+                            <input type="text" name="Name" class="form-control" />
+                            <br />
+                            <label>Yorumunuz</label>
+                            <input type="text" name="CommentText" class="form-control" />
+                            <br />
+
+                            <div id="PuanVer">
+
+                            </div>
+                            <input type="hidden" name="RatingAdvert" id="rating" />
+
+                            <br /><br />
+                            <button type="submit" class="btn btn-warning">Gönder</button>
+                        </form>
+                    </div>
+
+
+
+
+                    <div class="col-md-4">
+
+                        Yapılan Yorum: <h4>@ViewBag.sayi</h4> <br />
+
+
+                        <script>
+                      $(function(){
+
+                          $('#puan').rateYo({
+
+                              rating:@ViewBag.Ortalama,
+                              readonly: true,
+
+                              multiColor: {
+
+                                  "startColor": "#FF0000", //RED
+                                  "endColor": "#00FF00"  //GREEN
+                              },
+                          });
+                      });
+                        </script>
+
+                    </div>
+                    <strong>İlan Puanı:</strong> <div class="col-md-6" id="puan"></div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        Yorumlar
+    </div>
+
+    <hr />
+
+    <div class="container">
+        <div class="row" style="background-color:lightgray">
+            <div class="col-md-12">
+
+                @{ int c = 1; }
+                @foreach (var item in ViewBag.comment)
+                {
+                    <div class="col-md-6">
+
+                        <strong>Kullanıcı: @item.Name</strong> <br />
+                        <strong>Yorumu: @item.CommentText</strong>
+
+                        <script>
+                      $(function(){
+
+                          $('#@("puanlar"+c)').rateYo({
+
+                              rating:@item.RatingAdvert,
+                              readonly: true,
+                              fullStar: true,
+                              numStars: 5,
+                              maxValue: 5,
+                              multiColor: {
+
+                                  "startColor": "#FF0000", //RED
+                                  "endColor": "#00FF00"  //GREEN
+                              },
+                          });
+                      });
+                        </script>
+                    </div>
+                   <div class="col-md-6" id="@("puanlar" + c)"></div>
+                    c++;
+                    <br /><br />
+                }
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            $("#PuanVer").rateYo({
+
+                rating: 0,
+                numStars: 5,
+                maxValue: 5,
+                fullStar: true,
+
+                multiColor: {
+
+                    "startColor": "#FF0000", //RED
+                    "endColor": "#00FF00"  //GREEN
+                },
+                onChange: function (rating, rateYoInstance) {
+                    $('#rating').val(rating);
+
+                }
+            });
+
+
+        });
+
+    </script>
+    <!-- ##### Listings Content Area End ##### -->
+    <!-- ##### Footer Area Start ##### -->
+    <footer class="footer-area section-padding-100-0 bg-img gradient-background-overlay" style="background-image: url(img/bg-img/cta.jpg);">
+        <!-- Main Footer Area -->
+        <div class="main-footer-area">
+            <div class="container">
+                <div class="row">
+
+                    <!-- Single Footer Widget -->
+                    <div class="col-12 col-sm-6 col-xl-3">
+                        <div class="footer-widget-area mb-100">
+                            <!-- Widget Title -->
+                            <div class="widget-title">
+                                <h6>About Us</h6>
+                            </div>
+
+                            <img src="img/bg-img/footer.jpg" alt="">
+                            <div class="footer-logo my-4">
+                                <img src="img/core-img/logo.png" alt="">
+                            </div>
+                            <p>Integer nec bibendum lacus. Suspen disse dictum enim sit amet libero males uada feugiat. Praesent malesuada.</p>
+                        </div>
+                    </div>
+
+                    <!-- Single Footer Widget -->
+                    <div class="col-12 col-sm-6 col-xl-3">
+                        <div class="footer-widget-area mb-100">
+                            <!-- Widget Title -->
+                            <div class="widget-title">
+                                <h6>Hours</h6>
+                            </div>
+                            <!-- Office Hours -->
+                            <div class="weekly-office-hours">
+                                <ul>
+                                    <li class="d-flex align-items-center justify-content-between"><span>Monday - Friday</span> <span>09 AM - 19 PM</span></li>
+                                    <li class="d-flex align-items-center justify-content-between"><span>Saturday</span> <span>09 AM - 14 PM</span></li>
+                                    <li class="d-flex align-items-center justify-content-between"><span>Sunday</span> <span>Closed</span></li>
+                                </ul>
+                            </div>
+                            <!-- Address -->
+                            <div class="address">
+                                <h6><img src="img/icons/phone-call.png" alt=""> +45 677 8993000 223</h6>
+                                <h6><img src="img/icons/envelope.png" alt=""> office@template.com</h6>
+                                <h6><img src="img/icons/location.png" alt=""> Main Str. no 45-46, b3, 56832, Los Angeles, CA</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Single Footer Widget -->
+                    <div class="col-12 col-sm-6 col-xl-3">
+                        <div class="footer-widget-area mb-100">
+                            <!-- Widget Title -->
+                            <div class="widget-title">
+                                <h6>Useful Links</h6>
+                            </div>
+                            <!-- Nav -->
+                            <ul class="useful-links-nav d-flex align-items-center">
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">About us</a></li>
+                                <li><a href="#">About us</a></li>
+                                <li><a href="#">Services</a></li>
+                                <li><a href="#">Properties</a></li>
+                                <li><a href="#">Listings</a></li>
+                                <li><a href="#">Testimonials</a></li>
+                                <li><a href="#">Properties</a></li>
+                                <li><a href="#">Blog</a></li>
+                                <li><a href="#">Testimonials</a></li>
+                                <li><a href="#">Contact</a></li>
+                                <li><a href="#">Elements</a></li>
+                                <li><a href="#">FAQ</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Single Footer Widget -->
+                    <div class="col-12 col-sm-6 col-xl-3">
+                        <div class="footer-widget-area mb-100">
+                            <!-- Widget Title -->
+                            <div class="widget-title">
+                                <h6>Featured Properties</h6>
+                            </div>
+                            <!-- Featured Properties Slides -->
+                            <div class="featured-properties-slides owl-carousel">
+                                <!-- Single Slide -->
+                                <div class="single-featured-properties-slide">
+                                    <a href="#"><img src="img/bg-img/fea-product.jpg" alt=""></a>
+                                </div>
+                                <!-- Single Slide -->
+                                <div class="single-featured-properties-slide">
+                                    <a href="#"><img src="img/bg-img/fea-product.jpg" alt=""></a>
+                                </div>
+                                <!-- Single Slide -->
+                                <div class="single-featured-properties-slide">
+                                    <a href="#"><img src="img/bg-img/fea-product.jpg" alt=""></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Copywrite Text -->
+        <div class="copywrite-text d-flex align-items-center justify-content-center">
+            <p>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                Copyright &copy;
+                <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+        </div>
+    </footer>
+   
+    <!-- Bootstrap js -->
+    <script src="~/Estate/js/bootstrap.min.js"></script>
+    <!-- Plugins js -->
+    <!--<script src="~/Estate/js/plugins.js"></script>
+    <script src="~/Estate/js/classy-nav.min.js"></script>
+    <script src="~/Estate/js/jquery-ui.min.js"></script>-->
+    <!-- Active js -->
+    <!--<script src="~/Estate/js/active.js"></script>-->
+
+
+
+
+</body>
+
+</html>

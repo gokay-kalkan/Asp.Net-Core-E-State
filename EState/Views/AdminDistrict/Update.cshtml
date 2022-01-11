@@ -1,0 +1,41 @@
+﻿@model District
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="form-group">
+                        <form method="post" asp-action="Update">
+                            @Html.HiddenFor(x=>x.DistrictId)
+                            <div asp-validation-summary="ModelOnly"></div>
+                            @Html.AntiForgeryToken()
+                            <label>Semt Adı</label>
+                            <input type="text" class="form-control" asp-for="DistrictName" />
+                            <span asp-validation-for="DistrictName" class="text-danger"></span>
+                            <br />
+                            <label>Şehir Adı</label>
+                            <select asp-for="CityId" class="form-control">
+                               
+                                @foreach (var item in ViewBag.city)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+
+
+                            </select>
+                            <br />
+                            <button type="submit" class="btn btn-primary">Güncelle</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

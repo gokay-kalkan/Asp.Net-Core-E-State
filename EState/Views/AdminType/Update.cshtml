@@ -1,0 +1,43 @@
+﻿@model EntityLayer.Entities.Type
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="form-group">
+                        <form method="post" asp-action="Update">
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(x => x.TypeId)
+                            <label>Tip Adı</label>
+                            <input class="form-control" asp-for="TypeName" />
+                            <span asp-validation-for="TypeName" class="text-danger"></span>
+                            <br />
+                            <label>Durum Adı</label>
+                            <select asp-for="SituationId" class="form-control">
+
+                                @foreach (var item in ViewBag.situation)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+
+
+                            </select>
+                            <br />
+                            <button type="submit" class="btn btn-primary">Güncelle</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

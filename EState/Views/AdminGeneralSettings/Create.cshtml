@@ -1,0 +1,33 @@
+﻿@model GeneralSettings
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <form method="post" asp-antiforgery="true" enctype="multipart/form-data">
+                      
+                        <label>Email</label>
+                        <input type="text" asp-for="Email" class="form-control" />
+                        <br />
+                        <label>Telefon</label>
+                        <input type="text" asp-for="PhoneNumber" class="form-control" />
+                        <br />
+                        <label>Adres</label>
+                        <textarea cols="4" rows="4" class="form-control" placeholder="Adres Giriniz" name="Adress"></textarea>
+                        <br />
+                        <label>Logo</label>
+                        <input type="file" asp-for="Image" />
+                        <br />
+                        <button type="submit" class="btn btn-warning">Ekle</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

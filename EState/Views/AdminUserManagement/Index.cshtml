@@ -1,0 +1,61 @@
+﻿@model List<UserAdmin>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<table class="table table-bordered table table-striped" id="table">
+    <tr>
+        <th>Ad Soyad</th>
+        <th>Kullanıcı Adı</th>
+        <th>Email</th>
+        <th>Rol Ata</th>
+        <th>Kullanıcıyı Engelle</th>
+    </tr>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.FullName</td>
+                <td>@item.UserName</td>
+                <td>@item.Email</td>
+                <td><a asp-action="RoleAssign" class="btn btn-success" asp-route-id="@item.Id">Rol Ata</a></td>
+                <td><a  id="delete" data-id="@item.Id"  class="btn btn-danger">Engelle</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-action="UserCreate" class="btn btn-primary">Yeni Kullanıcı Ekle</a>
+
+<script type="text/javascript">
+
+    $("#table").on("click", "#delete", function () {
+        var id = $(this).data("id");
+        swal({
+            title: 'Kullanıcı Silinecek!',
+            text: "Silmek istediğinize emin misiniz?",
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+
+            if (willDelete) {
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/AdminUserManagement/UserDelete/' + id,
+                    success: function () {
+                        toastr.error('Kullanıcı Silme İşlemi Başarıyla Gerçekleşti')
+
+
+                    }
+                });
+
+                $(this).parent('td').parent('tr').remove();
+
+            }
+
+        });
+
+    });
+</script>

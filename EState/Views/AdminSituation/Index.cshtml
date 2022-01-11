@@ -1,0 +1,62 @@
+﻿@model List<Situation>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<a asp-action="Add" class="btn btn-primary" style="margin-left:10px;">Yeni Durum Ekle</a>
+<br />
+<br />
+<table class="table table-bordered table table-striped" id="table">
+    <tr>
+        <th>Durum Adı</th>
+        <th>Durum Sil</th>
+        <th>Durum Güncelle</th>
+    </tr>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.SituationName</td>
+                <td><a class="btn btn-danger" data-id="@item.SituationId" id="delete">Sil</a></td>
+                <td><a class="btn btn-warning" asp-action="Update" asp-route-id="@item.SituationId">Güncelle</a></td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<script type="text/javascript">
+
+    $("#table").on("click", "#delete", function () {
+        var id = $(this).data("id");
+        swal({
+            title: 'Durum Silinecek!',
+            text: "Silmek istediğinize emin misiniz?",
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+
+            if (willDelete) {
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/AdminSituation/Delete/' + id,
+                    success: function () {
+                        toastr.error('Durum Silme İşlemi Başarıyla Gerçekleşti')
+
+
+                    }
+                });
+
+                $(this).parent('td').parent('tr').remove();
+
+            }
+
+        });
+
+    });
+</script>

@@ -1,0 +1,45 @@
+﻿@model List<Advert>
+    @{
+        ViewData["Title"] = "Index";
+        Layout = "~/Views/Shared/_UserLayout.cshtml";
+    }
+
+
+
+    <a asp-action="Add" class="btn btn-primary" style="margin-left:10px,">Yeni İlan Ekle</a>
+    <br />
+    <br />
+    <table class="table table-bordered table table-striped">
+        <tr>
+            <th>Açıklama</th>
+            <th>Fiyat</th>
+            <th>Oda Sayısı</th>
+            <th>Banyo Sayısı</th>
+            <th>Alanı</th>
+            <th>Kat</th>
+            <th>Adres</th>
+            <th>İlan Resimleri</th>
+            <th>Yeni Resimler Ekle</th>
+            <th>İlan Sil</th>
+            <th>İlan Güncelle</th>
+        </tr>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Description</td>
+                    <td>@item.Price</td>
+                    <td>@item.NumberOfRooms</td>
+                    <td>@item.BathroomNumbers</td>
+                    <td>@item.Area</td>
+                    <td>@item.Floor</td>
+                    <td>@item.Adress</td>
+                    <td><a class="btn btn-success" asp-action="AdvertImages" asp-route-id="@item.AdvertId">Resimler</a></td>
+                    <td><a class="btn btn-success" asp-action="ImageCreate" asp-route-id="@item.AdvertId">Resim Ekle</a></td>
+                    <td><a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.AdvertId" onclick="return confirm('Bu Kaydı Silmek İstediğinize Emin misiniz?')">Sil</a></td>
+                    <td><a class="btn btn-warning" asp-action="Update" asp-route-id="@item.AdvertId">Güncelle</a></td>
+                </tr>
+            }
+
+        </tbody>
+    </table>

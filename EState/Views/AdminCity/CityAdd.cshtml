@@ -1,0 +1,29 @@
+﻿@model City
+@{
+    ViewData["Title"] = "CityAdd";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="form-group">
+                        <form method="post" asp-action="CityAdd">
+                            <div asp-validation-summary="ModelOnly"></div>
+                            @Html.AntiForgeryToken()
+                            <label>Şehir Adı</label>
+                            <input type="text" class="form-control" asp-for="CityName" />
+                            <span asp-validation-for="CityName" class="text-danger"></span>
+                            <br />
+                            <button type="submit" class="btn btn-primary">Ekle</button>
+                        </form>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,63 @@
+﻿@model List<Neighbourhood>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<a asp-action="Add" class="btn btn-primary" style="margin-left:10px;">Yeni Mahalle Ekle</a>
+<br />
+<br />
+<table class="table table-bordered table table-striped" id="table">
+    <tr>
+        <th>Mahalle Adı</th>
+        <th>Semt Adı</th>
+        <th>Mahalle Sil</th>
+        <th>Mahalle Güncelle</th>
+    </tr>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.NeighbourhoodName</td>
+                <td>@item.District.DistrictName</td>
+                <td><a class="btn btn-danger" id="delete" data-id="@item.DistrictId">Sil</a></td>
+                <td><a class="btn btn-warning" asp-action="Update" asp-route-id="@item.NeighbourhoodId">Güncelle</a></td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+
+<script type="text/javascript">
+
+    $("#table").on("click", "#delete", function () {
+        var id = $(this).data("id");
+        swal({
+            title: 'Mahalle Silinecek!',
+            text: "Silmek istediğinize emin misiniz?",
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+
+            if (willDelete) {
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/AdminNeighbourhoodDelete/' + id,
+                    success: function () {
+                        toastr.error('Mahalle Silme İşlemi Başarıyla Gerçekleşti')
+
+
+                    }
+                });
+
+                $(this).parent('td').parent('tr').remove();
+
+            }
+
+        });
+
+    });
+</script>

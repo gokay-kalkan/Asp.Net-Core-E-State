@@ -1,0 +1,78 @@
+﻿@model List<Advert>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<a asp-action="Add" class="btn btn-primary" style="margin-left:10px,">Yeni İlan Ekle</a>
+<br />
+<br />
+<table class="table table-bordered table table-striped" id="table">
+    <tr>
+        <th>Açıklama</th>
+        <th>Fiyat</th>
+        <th>Oda Sayısı</th>
+        <th>Banyo Sayısı</th>
+        <th>Alanı</th>
+        <th>Kat</th>
+        <th>Adres</th>
+        <th>İlan Resimleri</th>
+        <th>Yeni Resimler Ekle</th>
+        <th>İlan Sil</th>
+        <th>İlan Güncelle</th>
+    </tr>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Description</td>
+                <td>@item.Price</td>
+                <td>@item.NumberOfRooms</td>
+                <td>@item.BathroomNumbers</td>
+                <td>@item.Area</td>
+                <td>@item.Floor</td>
+                <td>@item.Adress</td>
+                <td><a class="btn btn-success" asp-action="AdvertImages" asp-route-id="@item.AdvertId">Resimler</a></td>
+                <td><a class="btn btn-success" asp-action="ImageCreate" asp-route-id="@item.AdvertId">Resim Ekle</a></td>
+                <td><a class="btn btn-danger" id="delete" data-id="@item.AdvertId">Sil</a></td>
+                <td><a class="btn btn-warning" asp-action="Update" asp-route-id="@item.AdvertId">Güncelle</a></td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<script type="text/javascript">
+
+    $("#table").on("click", "#delete", function () {
+        var id = $(this).data("id");
+        swal({
+            title: 'İlan Silinecek!',
+            text: "Silmek istediğinize emin misiniz?",
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+
+            if (willDelete) {
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/AdminAdvert/Delete/' + id,
+                    success: function () {
+                        toastr.error('İlan Silme İşlemi Başarıyla Gerçekleşti')
+
+
+                    }
+                });
+
+                $(this).parent('td').parent('tr').remove();
+
+            }
+
+        });
+
+    });
+</script>

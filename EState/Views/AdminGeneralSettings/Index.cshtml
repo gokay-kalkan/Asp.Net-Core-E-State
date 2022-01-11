@@ -1,0 +1,30 @@
+﻿@model List<GeneralSettings>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<table class="table table-bordered table table-striped">
+    <tr>
+        <th>Eposta</th>
+        <th>Telefon Numarası</th>
+        <th>Adres</th>
+        <th>Logo</th>
+        <th>Güncelle</th>
+    </tr>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Email</td>
+                <td>@item.PhoneNumber</td>
+                <td>@item.Adress</td>
+                <td><img src="~/img/@item.ImageName" width="70" height="70"/></td>
+                <td><a class="btn btn-warning" asp-action="Update" asp-route-id="@item.GeneralSettingsId">Güncelle</a></td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+<br />
+<a asp-action="Create" class="btn btn-primary">Ekle</a>
